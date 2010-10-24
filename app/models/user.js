@@ -1,7 +1,9 @@
 var Entity = require("./entity").Entity;
 
 var User = function () {
-  Entity.call(this, arguments);
+  Entity.apply(this, arguments);
 };
+User.GAIA = new User();
 User.prototype = new Entity();
 
+exports.User = User;

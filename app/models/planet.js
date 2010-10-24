@@ -2,7 +2,7 @@ var Mappable = require("./mappable").Mappable
   , Ship = require("./ship").Ship;
 
 var Planet = function () {
-  Mappable.call(this, arguments);
+  Mappable.apply(this, arguments);
   this.parent = Mappable;
 };
 Planet.radius = 10;
@@ -14,3 +14,4 @@ Planet.prototype.build = function () {
   new Ship(undefined, this.owner, this.coordinates);
 };
 
+exports.Planet = Planet;

@@ -1,13 +1,12 @@
 var Entity = require("./entity").Entity
+  , User = require("./user").User
 
-// @coordinates => [INT, INT]
+// @coordinates => Vector
 var Mappable = function (guid, owner, coordinates) {
-//  if (!coords || !coords.length) {
-//    raise "Freak out";
-//  }
+  if (!coordinates) throw new Error("Coordinates are a required property of Mappable");
   this.coordinates = coordinates;
-  this.owner = owner || GAIA;
-  Entity.call(this, arguments);
+  this.owner = owner || User.GAIA;
+  Entity.apply(this, arguments);
 };
 Mappable.prototype = new Entity();
 
@@ -26,3 +25,4 @@ Mappable.prototype.serialize = function (entities) {
   return output;
 };
 
+exports.Mappable = Mappable;

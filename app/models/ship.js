@@ -1,4 +1,5 @@
 var Mappable = require("./mappable").Mappable
+  , Vector = require("../lib/vector").Vector
 
 // {"action": "orient", "args": [0,1]}
 // {"action": "hold"}
@@ -6,8 +7,8 @@ var Mappable = require("./mappable").Mappable
 // @coordinates => [INT, INT]
 // @orientation => [INT, INT]
 var Ship = function (guid, owner, coordinates, orientation) {
-  this.orientation = orientation || [0,0];
-  Mappable.call(this, arguments);
+  this.orientation = orientation || new Vector(); 
+  Mappable.apply(this, arguments);
 };
 
 Ship.velocity = 50;
@@ -21,7 +22,7 @@ Ship.prototype.serialize = function (losEntities) {
 };
 
 Ship.prototype.orient = function (coordinates) {
-  this.orientation = this.unitVector(this.subtractVector(this.coordinates, coordinates));
+  this.orientation = this.coordinates.subtract(coordinates).unit();
   this.velocity = Ship.velocity;
 };
 
@@ -32,7 +33,7 @@ Ship.prototype.hold = function () {
 // (can only colonize planets that it's at the coordinates of)
 Ship.prototype.colonize = function (planet) {
   this.velocity = 0;
-  if (planet.coordinates[0] == this.coordinates[0] && planet.coordinates[1] == this.coordinates[1]) {
+  if (this.coordinates.equals(planet.coordinates)) {
     planet.owner = this.owner;
     this.owner.colonizing = true;
   }
@@ -44,7 +45,7 @@ Ship.prototype.update = function (gameState) {
   if (planet) {
     this.coordinates = planet.coordinates;
   } else {
-    this.coordinates = this.vecotorAdd(this.vectorMult(this.orientation, this.velocity), this.coordinates);
+    this.coordinates = this.orientation.multiply(this.velocity).add(this.coordinates);
   }
 };
 
@@ -52,3 +53,5 @@ Ship.prototype.update = function (gameState) {
 Ship.prototype.trace = function (planets) {
   //Entity.prototype.trace(this, this.line(), planets)
 };
+
+exports.Ship = Ship;

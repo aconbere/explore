@@ -1,7 +1,7 @@
 var sys = require("sys")
-  , User = require("./user").User;
-
-var GAIA = new User();
+  , User = require("./user").User
+  , Planet = require("./planet").Planet
+  , Vector = require("../lib/vector").Vector
 
 var Game = function (worldSize, total) {
   this.worldSize = worldSize;
@@ -13,15 +13,16 @@ var Game = function (worldSize, total) {
 Game.randomMap = function (worldSize, total) {
   var game = new Game(worldSize, total);
   game.entities = game.randomMap();
+  return game;
 };
 
 Game.prototype.randomMap = function () {
   var entities = {};
   
-  for (var i = 0; i < total; i++) {
-    var x = Math.floor(Math.random * this.worldSize);
-    var y = Math.floor(Math.random * this.worldSize);
-    var planet = Planet(undefined, GAIA, [x, y]);
+  for (var i = 0; i < this.total; i++) {
+    var x = Math.floor(Math.random() * this.worldSize);
+    var y = Math.floor(Math.random() * this.worldSize);
+    var planet = new Planet(undefined, User.GAIA, new Vector(x, y, 0));
     entities[planet.guid] = planet; 
   }
   return entities;
@@ -73,3 +74,5 @@ Game.prototype.query = function (guid)  {
   var entity = this.getEntities(guid)
   return entity.serialize(this.entities);
 }
+
+exports.Game = Game;

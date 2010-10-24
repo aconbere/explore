@@ -1,7 +1,7 @@
 var GUID = require("./guid").GUID;
 
 var Entity = function (guid) {
-  this.guid = guid || new GUID();
+  this.guid = guid || GUID();
   this.type = "entity";
 };
 
@@ -18,3 +18,4 @@ Entity.prototype.serialize = function () {
   return output;
 };
 
+exports.Entity = Entity;
