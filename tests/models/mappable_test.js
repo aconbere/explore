@@ -6,10 +6,6 @@ var Vector = require("../../app/lib/vector").Vector;
 
 minitest.context("Mappable", function () {
   this.assertion("Should instantiate itself", function (test) {
-    assert.throws(function () {
-      new Mappable();
-    });
-
     var coordinates = new Vector();
     var m = new Mappable(undefined, undefined, coordinates);
     assert.ok(m.guid);

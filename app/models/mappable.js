@@ -3,7 +3,6 @@ var Entity = require("./entity").Entity
 
 // @coordinates => Vector
 var Mappable = function (guid, owner, coordinates) {
-  if (!coordinates) throw new Error("Coordinates are a required property of Mappable");
   this.coordinates = coordinates;
   this.owner = owner || User.GAIA;
   Entity.apply(this, arguments);
