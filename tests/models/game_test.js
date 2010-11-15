@@ -19,7 +19,6 @@ minitest.context("Game#randomMap", function () {
 
   this.assertion("register should register an entity", function (test) {
     this.game.register({"guid": 12121, "x": "wtf"});
-    sys.puts(sys.inspect(this.entities));
     assert.equal(this.game.entities[12121].x, "wtf");
     test.finished();
   });
@@ -29,9 +28,6 @@ minitest.context("Game#randomMap", function () {
     var coordinates = new Vector(0,1,2);
     var orientation = new Vector(2,1,0);
     var s = new Ship(this.game, undefined, undefined, coordinates, orientation);
-    sys.puts("+++++++++++")
-    sys.puts(s.guid)
-    sys.puts(Object.keys(this.game.entities));
     assert.equal(Object.keys(this.game.entities).length, startLength + 1);
     assert.deepEqual(this.game.getEntity(s.guid).coordinates, s.coordinates)
   });
