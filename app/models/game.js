@@ -6,26 +6,30 @@ var sys = require("sys")
 var Game = function (worldSize, total) {
   this.worldSize = worldSize;
   this.total = total;
-  this.user = new User();
+  this.entities = {};
+  this.user = new User(this);
+  this.GAIA = new User(this);
   this.turn = 0;
 };
 
 Game.randomMap = function (worldSize, total) {
   var game = new Game(worldSize, total);
-  game.entities = game.randomMap();
+  game.randomMap();
   return game;
 };
 
+
+Game.prototype.register = function (entity) {
+  this.entities[entity.guid] = entity;
+};
+
 Game.prototype.randomMap = function () {
-  var entities = {};
-  
   for (var i = 0; i < this.total; i++) {
     var x = Math.floor(Math.random() * this.worldSize);
     var y = Math.floor(Math.random() * this.worldSize);
-    var planet = new Planet(undefined, User.GAIA, new Vector(x, y, 0));
-    entities[planet.guid] = planet; 
+    var planet = new Planet(this, undefined, this.GAIA, new Vector(x, y, 0));
+    this.register(planet); 
   }
-  return entities;
 };
 
 Game.prototype.start = function () {

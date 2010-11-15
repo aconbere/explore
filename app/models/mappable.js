@@ -2,11 +2,14 @@ var Entity = require("./entity").Entity
   , User = require("./user").User
 
 // @coordinates => Vector
-var Mappable = function (guid, owner, coordinates) {
-  this.coordinates = coordinates;
-  this.owner = owner || User.GAIA;
+var Mappable = function (game, guid, owner, coordinates) {
   Entity.apply(this, arguments);
+  this.coordinates = coordinates;
+  if (this.game) {
+    this.owner = owner || this.game.GAIA;
+  }
 };
+
 Mappable.prototype = new Entity();
 
 // returns a list of entites filtered on the ships line of sight

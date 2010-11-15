@@ -7,7 +7,7 @@ var Mappable = require("./mappable").Mappable
 // {"action": "colonize", "args": [<guid>]}
 // @coordinates => [INT, INT]
 // @orientation => [INT, INT]
-var Ship = function (guid, owner, coordinates, orientation) {
+var Ship = function (game, guid, owner, coordinates, orientation) {
   Mappable.apply(this, arguments);
   this.orientation = orientation || new Vector(); 
   this.speed = 0;
