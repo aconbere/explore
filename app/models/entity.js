@@ -13,7 +13,7 @@ Entity.prototype.update = function (gameState) {
   if (this.pendingAction) {
     if (!this[this.pendingAction.action])
       throw "Unknown Action"
-    this[this.pendingAction.action].call(this, this.pendingAction.args);
+    this[this.pendingAction.action].apply(this, this.pendingAction.args);
     delete this.pendingAction
   }
 };
