@@ -9,9 +9,12 @@ var Entity = function (game, guid) {
   this.type = "entity";
 };
 
-Entity.prototype.update = function () {
+Entity.prototype.update = function (gameState) {
   if (this.pendingAction) {
+    if (!this[this.pendingAction.action])
+      throw "Unknown Action"
     this[this.pendingAction.action].call(this, this.pendingAction.args);
+    delete this.pendingAction
   }
 };
 
@@ -19,7 +22,6 @@ Entity.prototype.register = function (game) {
   if (game) {
     this.game = game;
     this.game.register(this);
-  } else {
   }
 };
 

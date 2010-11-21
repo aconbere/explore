@@ -10,11 +10,8 @@ minitest.context("Entity", function () {
 
   this.assertion("should register itself to the game instance", function (test) {
     var e = new Entity(this.game, "test");
-    console.log("____________________")
-    console.log(e);
-    console.log("____________________")
-    console.log(this.game.entities);
     assert.ok(this.game.entities["test"]);
+    test.finished();
   });
 
   this.assertion("Create instance with preset GUID", function (test) {

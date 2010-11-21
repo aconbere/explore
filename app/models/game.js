@@ -40,9 +40,18 @@ Game.prototype.tick = function () {
   var that = this;
   sys.puts("starting new tick");
   Object.keys(this.entities).forEach(function (guid) {
-    that.getEntity(guid).update();
+    that.getEntity(guid).update(that);
   });
   this.turn++;
+};
+
+Game.prototype.planets = function () {
+  var that = this;
+  return Object.keys(this.entities).map(function (guid) {
+    return that.getEntity(guid);
+  }).filter(function (entity) {
+    return entity.type === "planet";
+  });
 };
 
 // LINE OF SIGHT
@@ -56,7 +65,7 @@ Game.prototype.getEntity = function (guid) {
 // queues an action on an entity
 // {entity: <guid>, "action": <action>, "args": <args>}
 Game.prototype.dispatch = function (command)  {
-  var entity = this.getEntity(command.guid);
+  var entity = this.getEntity(command.entity);
   if (entity) {
     entity.pendingAction = {"action": command.action, "args": command.args};
     return true;
