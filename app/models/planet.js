@@ -3,10 +3,10 @@ var Mappable = require("./mappable").Mappable
 
 var Planet = function () {
   Mappable.apply(this, arguments);
-  this.radius = Planet.radius;
+  this.radius = 2; 
+  this.los = 5;
+  this.type = "planet";
 };
-Planet.radius = 2;
-Planet.losRadius = 50;
 
 Planet.prototype = new Mappable();
 

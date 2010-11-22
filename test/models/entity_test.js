@@ -1,5 +1,4 @@
-var minitest = require("minitest")
-  , assert = require("assert")
+var assert = require("assert")
   , Entity = require("../../app/models/entity").Entity
   , GameMock = require("../mocks").GameMock
   , vows = require("vows")
@@ -47,4 +46,4 @@ suite.addBatch({
       }
     }
   }
-}).run()
+}).export(module)

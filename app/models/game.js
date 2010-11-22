@@ -36,20 +36,25 @@ Game.prototype.start = function () {
   this.entities[Object.keys(this.entities)[0]].owner = this.user;
 };
 
+Game.prototype.entityValues = function () {
+  var that = this;
+  return Object.keys(this.entities).map(function (guid) {
+    return that.getEntity(guid);
+  });
+}
+
 Game.prototype.tick = function () {
   var that = this;
   sys.puts("starting new tick");
-  Object.keys(this.entities).forEach(function (guid) {
-    that.getEntity(guid).update(that);
+  this.entityValues().forEach(function (e) {
+    e.update(that)
   });
   this.turn++;
 };
 
 Game.prototype.planets = function () {
   var that = this;
-  return Object.keys(this.entities).map(function (guid) {
-    return that.getEntity(guid);
-  }).filter(function (entity) {
+  this.entityValues().filter(function (entity) {
     return entity.type === "planet";
   });
 };
@@ -58,6 +63,17 @@ Game.prototype.planets = function () {
 // Planets -> returns a list of planets visable
 // Ships -> results a list of planets visable
 // Users -> returns a list of user owned resources
+//
+Game.prototype.getLOS = function (guid) {
+  var entity  = this.getEntity(guid);
+
+  return this.entityValues().filter(function (e) {
+    if (e.coordinates) {
+      return (e.guid != entity.guid) && e.coordinates.subtract(entity.coordinates).magnitude() < (entity.los + e.radius);
+    }
+  });
+};
+
 Game.prototype.getEntity = function (guid) {
   return this.entities[guid];
 };
@@ -77,6 +93,7 @@ Game.prototype.serialize = function ()  {
   return { "type": "game"
          , "turn": this.turn
          , "worldSize": this.worldSize
+         , "total": this.total
          }
 };
 

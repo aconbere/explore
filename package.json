@@ -1,0 +1,16 @@
+{ "name": "explore"
+, "description": "a guiless game of galactic exploration"
+, "version": "0.0.1"
+, "author": "Anders Conbere & Caleb Dockter"
+, "contributors": ["Anders Conbere (aconbere)", "Caleb Docter (cdockter)"]
+, "repository":
+  { "type": "git"
+  , "url": "http://github.com/aconbere/explore.git"
+  }
+, "directories": { "lib" : "./lib/" }
+, "engines": { "node" : ">=0.1.93" }
+, "dependencies":  { "vows": ""
+                   , "express": ""
+                   }
+  }
+}

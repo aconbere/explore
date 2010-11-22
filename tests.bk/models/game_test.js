@@ -54,10 +54,11 @@ minitest.context("Game", function () {
     var s = new Ship(this.game, undefined, undefined, coordinates, orientation);
     var action = { "entity": s.guid
                  , "action": "orient"
-                 , "args": new Vector (1,1,1)
+                 , "args": [new Vector (1,1,1)]
                  };
     this.game.dispatch(action);
     this.game.tick();
+    test.finished();
   })
 });
 

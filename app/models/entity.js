@@ -7,6 +7,8 @@ var Entity = function (game, guid) {
   this.guid = guid || GUID();
   this.register(game);
   this.type = "entity";
+  this.radius = 0;
+  this.los = 0;
 };
 
 Entity.prototype.update = function (gameState) {

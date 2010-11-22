@@ -11,10 +11,11 @@ var Ship = function (game, guid, owner, coordinates, orientation) {
   Mappable.apply(this, arguments);
   this.orientation = orientation || new Vector(); 
   this.speed = 0;
+  this.los = 5;
+  this.type = "ship";
 };
 
 Ship.speed = 50;
-Ship.losRadius = 50;
 
 Ship.prototype = new Mappable();
 
@@ -24,7 +25,6 @@ Ship.prototype.serialize = function (losEntities) {
 };
 
 Ship.prototype.orient = function (coordinates) {
-  console.log(coordinates);
   this.orientation = coordinates.subtract(this.coordinates).unit();
   // resets ship speed to global speed of ships
   // orient always implies movement next turn

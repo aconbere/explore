@@ -8,6 +8,7 @@ var Mappable = function (game, guid, owner, coordinates) {
   if (this.game) {
     this.owner = owner || this.game.GAIA;
   }
+  this.type = "mappable"
 };
 
 Mappable.prototype = new Entity();
