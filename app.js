@@ -25,6 +25,10 @@ app.get("/game/tick", function (req, res) {
   res.send(JSON.stringify(game.serialize()));
 });
 
+app.get("/entity/pending/:id", function (req, res) {
+  res.send(JSON.stringify(game.getEntity(req.params.id).pendingAction) || "None");
+});
+
 app.get("/entity/:id", function (req, res) {
   res.send(JSON.stringify(game.getEntity(req.params.id).serialize()));
 });
@@ -35,12 +39,13 @@ app.get("/entity/:id/los", function (req, res) {
   })));
 });
 
-app.get("/entity/:id/:action", function (req, res) {
-  game.dispatch({ guid: req.params.id
+app.post("/entity/:id/:action", function (req, res) {
+  var result = game.dispatch(
+                { entity: req.params.id
                 , action: req.params.action
                 , args: req.body || []
-                })
-  res.send("true");
+                });
+  res.send(JSON.stringify(result));
 });
 
 app.listen(3030);

@@ -20,8 +20,9 @@ Ship.speed = 50;
 Ship.prototype = new Mappable();
 
 Ship.prototype.serialize = function (losEntities) {
-  var output = Mappable.prototype.call(this);
+  var output = Mappable.prototype.serialize.call(this);
   output["orientation"] = this.orientation;
+  return output;
 };
 
 Ship.prototype.orient = function (coordinates) {
