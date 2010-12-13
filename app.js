@@ -43,7 +43,7 @@ app.post("/entity/:id/:action", function (req, res) {
   var result = game.dispatch(
                 { entity: req.params.id
                 , action: req.params.action
-                , args: req.body || []
+                , args: req.body.items || []
                 });
   res.send(JSON.stringify(result));
 });
