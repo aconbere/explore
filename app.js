@@ -10,6 +10,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/game", function (req, res) {
+  console.log("game request")
   res.send(JSON.stringify(game.serialize()));
 });
 
@@ -20,7 +21,7 @@ app.get("/game/entities", function (req, res) {
   })));
 });
 
-app.get("/game/tick", function (req, res) {
+app.post("/game/tick", function (req, res) {
   game.tick();
   res.send(JSON.stringify(game.serialize()));
 });
@@ -30,6 +31,7 @@ app.get("/entity/pending/:id", function (req, res) {
 });
 
 app.get("/entity/:id", function (req, res) {
+  console.log("entitiy request: " + req.params.id)
   res.send(JSON.stringify(game.getEntity(req.params.id).serialize()));
 });
 
